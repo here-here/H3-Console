@@ -23,7 +23,7 @@ from django.urls import path, include
 
 # import home.views
 from rest_framework import routers
-from classes import urls
+from api import urls as api_urls
 
 # router = routers.DefaultRouter()
 # router.register(r'institutions', views.InstitutionsViewSet)
@@ -32,7 +32,7 @@ from classes import urls
 urlpatterns = [
     # path('', HomeView.as_view()),
 
-    path('api/', include(urls.urlpatterns))
+    path('api/', include(api_urls.urlpatterns))
     # path(r'console/', include('console.urls'))
 
     # Base

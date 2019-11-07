@@ -1,11 +1,7 @@
 from django.conf.urls import include, url
-try:
-  from django.conf.urls import patterns
-except ImportError:
-  pass
 import django
 from django.contrib import admin
-from classes import views
+from api import views
 
 
 urlpatterns = [

@@ -1,8 +1,8 @@
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from classes.serializers import InstitutionsSerializer, StudentsSerializer, CoursesSerializer, SessionsSerializer, AttendanceRecordSerializer
-from classes.models import Institutions, Students, Courses, Sessions, AttendanceRecord
+from api.serializers import InstitutionsSerializer, StudentsSerializer, CoursesSerializer, SessionsSerializer, AttendanceRecordSerializer
+from api.models import Institutions, Students, Courses, Sessions, AttendanceRecord
 
 
 class InstitutionsAPIView(APIView):
