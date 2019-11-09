@@ -24,16 +24,16 @@ from django.urls import path, include
 # import home.views
 from rest_framework import routers
 from api import urls as api_urls
+from console import urls as console_urls
 
 # router = routers.DefaultRouter()
 # router.register(r'institutions', views.InstitutionsViewSet)
 # from classes.u
 
 urlpatterns = [
-    # path('', HomeView.as_view()),
-
-    path('api/', include(api_urls.urlpatterns))
-    # path(r'console/', include('console.urls'))
+    path(r'^api/', include(api_urls.urlpatterns)),
+    path('', include('console.urls'))
+    
 
     # Base
     # path(r'', HomeView.as_view(), name='home'),
