@@ -33,8 +33,6 @@ from django.contrib import admin
 # from classes.u
 
 urlpatterns = [
-    path(r'^api/', include(api_urls.urlpatterns)),
-    path(r'admin/', admin.site.urls),
     path('', include('console.urls')),
     
 
@@ -44,13 +42,14 @@ urlpatterns = [
     # Users
     path(r'login/', LoginView.as_view(), name='login'),
     path(r'logout/', LogoutView.as_view(), name='logout'),
-    path(r'signup/', SignupView.as_view(), name='signup')
+    path(r'signup/', SignupView.as_view(), name='signup'),
 
-    # # API
+    # API
+    path(r'^api/', include(api_urls.urlpatterns)),
     # path(r'api/', APIRootView.as_view(), name='api-root')
     # re_path(r'^api/swagger(?P<format>.json|.yaml)$', schema_view.without_ui(), name='schema_swagger'),
 
-    # Admin
-    # path(r'admin/', admin.site.urls),
+    # Admin Page
+    path(r'admin/', admin.site.urls)
 
 ]
