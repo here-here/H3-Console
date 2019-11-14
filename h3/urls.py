@@ -22,9 +22,11 @@ from django.urls import path, include
 # from .admin import admin_site
 
 # import home.views
+from .views import LoginView, LogoutView, SignupView
 from rest_framework import routers
 from api import urls as api_urls
 from console import urls as console_urls
+from django.contrib import admin
 
 # router = routers.DefaultRouter()
 # router.register(r'institutions', views.InstitutionsViewSet)
@@ -32,15 +34,17 @@ from console import urls as console_urls
 
 urlpatterns = [
     path(r'^api/', include(api_urls.urlpatterns)),
-    path('', include('console.urls'))
+    path(r'admin/', admin.site.urls),
+    path('', include('console.urls')),
     
 
     # Base
-    # path(r'', HomeView.as_view(), name='home'),
+    # path(r'', HomeView.as_view(), name='home')
 
-    # # Users
-    # path(r'login/', LoginView.as_view(), name='login')
-    # path(r'logout/', LogoutView.as_view(), name='logout')
+    # Users
+    path(r'login/', LoginView.as_view(), name='login'),
+    path(r'logout/', LogoutView.as_view(), name='logout'),
+    path(r'signup/', SignupView.as_view(), name='signup')
 
     # # API
     # path(r'api/', APIRootView.as_view(), name='api-root')
