@@ -109,3 +109,4 @@ venv.bak/
 # Ignore Django Migrations
 */migrations/
 .DS_Store
+db-contents/
