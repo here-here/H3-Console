@@ -38,8 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'drf_generators',
+    'rest_framework_swagger',
     'console',
-    'api'
+    'class_periods'
 ]
 
 MIDDLEWARE = [
@@ -124,6 +125,14 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
+SWAGGER_SETTINGS = {
+    'LOGIN_URL': 'rest_framework:login',
+    'LOGOUT_URL': 'rest_framework:logout',
+    'USE_SESSION_AUTH': True,
+    'DOC_EXPANSION': 'list',
+    'APIS_SORTER': 'alpha',
+    'SECURITY_DEFINITIONS': None,
+}
 
 STATIC_URL = '/static/'
 

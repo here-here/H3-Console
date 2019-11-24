@@ -24,7 +24,7 @@ from django.urls import path, include
 # import home.views
 from .views import LoginView, LogoutView, SignupView
 from rest_framework import routers
-from api import urls as api_urls
+from class_periods import urls as api_urls
 from console import urls as console_urls
 from django.contrib import admin
 
@@ -39,13 +39,20 @@ urlpatterns = [
     # Base
     # path(r'', HomeView.as_view(), name='home')
 
-    # Users
-    path(r'login/', LoginView.as_view(), name='login'),
-    path(r'logout/', LogoutView.as_view(), name='logout'),
-    path(r'signup/', SignupView.as_view(), name='signup'),
+    # The following line adds the following paths:
+    # accounts/login/ [name='login']
+    # accounts/logout/ [name='logout']
+    # accounts/password_change/ [name='password_change']
+    # accounts/password_change/done/ [name='password_change_done']
+    # accounts/password_reset/ [name='password_reset']
+    # accounts/password_reset/done/ [name='password_reset_done']
+    # accounts/reset/<uidb64>/<token>/ [name='password_reset_confirm']
+    # accounts/reset/done/ [name='password_reset_complete']
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/signup', SignupView.as_view()),
 
-    # API
-    path(r'^api/', include(api_urls.urlpatterns)),
+    # Class Period API
+    path(r'api/classes', include(api_urls.urlpatterns)),
     # path(r'api/', APIRootView.as_view(), name='api-root')
     # re_path(r'^api/swagger(?P<format>.json|.yaml)$', schema_view.without_ui(), name='schema_swagger'),
 
