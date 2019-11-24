@@ -105,3 +105,7 @@ venv.bak/
 
 .idea/
 .vscode/
+
+# Ignore Django Migrations
+*/migrations/
+.DS_Store
