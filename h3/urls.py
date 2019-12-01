@@ -22,7 +22,7 @@ from django.urls import path, include
 # from .admin import admin_site
 
 # import home.views
-from .views import LoginView, LogoutView, SignupView
+from .views import RedirectView, SignupView
 from rest_framework import routers
 from class_periods import urls as api_urls
 from console import urls as console_urls
@@ -33,7 +33,11 @@ from django.contrib import admin
 # from classes.u
 
 urlpatterns = [
-    path('', include('console.urls')),
+    # Redirect home to the console
+    path(r'', RedirectView.as_view()),
+
+    # Console URLs
+    path(r'console/', include('console.urls')),
     
 
     # Base

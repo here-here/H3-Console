@@ -42,3 +42,6 @@ class SignupView(View):
         form = UserCreationForm()
         return render(request, 'signup.html', {'form': form})
         
+class RedirectView(View):
+    def get(self,request):
+        return redirect('/console')

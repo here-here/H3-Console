@@ -1,0 +1,31 @@
+{% include "base.html" %}
+<body>
+	
+	<div class="limiter">
+		<div class="container-table100">
+			<div class="wrap-table100">
+				<div class="table100">
+					<table>
+						<thead>
+							<tr class="table100-head">
+								<th class="column1">Class List</th>
+								<th class="column2">Sessions</th>
+							</tr>
+						</thead>
+						<tbody>
+								{% for class in classes %}
+								<tr>
+									<td class="column1">{{ class.name }}</td>
+									<td class="column2"><a href="/console/classes/{{ class.id }}">Session List</a></td>
+								</tr>
+								{% endfor %}
+								
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

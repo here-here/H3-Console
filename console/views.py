@@ -1,5 +1,28 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+
+from class_periods.models import ClassPeriods, SessionTokens, StudentCheckin
 
 # Create your views here.
 def IndexView(request):
-    return render(request,'home.html')
+    classes = ClassPeriods.objects.all()
+    classes_dict = [{'name': a.name, 'id': a.id} for a in classes]
+    return render(request,'ClassList.html', {'classes': classes})
+
+def ClassesView(request):
+    return "hi"
+
+def SessionsView(request, class_id=None):
+    print(class_id)
+    class_obj = get_object_or_404(ClassPeriods, id=class_id)
+    class_name = class_obj.name
+    sessions = SessionTokens.objects.all().filter(class_period=class_obj)
+    sessions_dict = [{'token': a.token, 'creation_date': a.creation_date, 'expiration_date': a.expiration_date, 'id': a.id} for a in sessions]
+
+    return render(request, 'SessionList.html', {'sessions': sessions_dict, 'name': class_name})
+
+def AttendanceView(request, session_id=None):
+    session_obj = get_object_or_404(SessionTokens, id=session_id)
+
+    checkins = StudentCheckin.objects.all().filter(session=session_obj)
+    sessions = [{'pid': a.pid, 'name': a.name, 'checkin_date': a.checkin_date} for a in checkins]
+    return render(request, 'AttendanceList.html', {'checkins': sessions, 'name': session_obj.token})

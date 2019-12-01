@@ -1,11 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import User, AbstractUser
 from django.utils import timezone
+import uuid
 
 #class User(AbstractUser):
 #    is_professor = models.BooleanField(default=False)
 
 class ClassPeriods(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.TextField(max_length=60)
     location = models.TextField(max_length=150)
     description = models.TextField(max_length=150)
@@ -15,8 +17,12 @@ class ClassPeriods(models.Model):
 
     def __str__(self):
         return self.name
+    
+    class Meta:
+        verbose_name_plural="Class Periods"
 
 class SessionTokens(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     token = models.TextField()
     class_period = models.ForeignKey(ClassPeriods, on_delete=models.CASCADE)
     creation_date = models.DateTimeField(auto_now=True)
@@ -34,11 +40,22 @@ class SessionTokens(models.Model):
     def __str__(self):
         return self.token
 
+    class Meta:
+        verbose_name_plural="Session Tokens"
+
 class StudentCheckin(models.Model):
     name = models.TextField()
     pid = models.TextField()
-    checkin_date = models.DateTimeField(auto_now=True)
+    checkin_date = models.DateTimeField()
     session = models.ForeignKey(SessionTokens, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.name} checked in to {self.session.class_period.name} at {self.checkin_date}"
+
+    def save(self, *args, **kwargs): 
+        if not self.id:
+            self.created = timezone.now()
+            self.modified = timezone.now()
+            return super(StudentCheckin, self).save(*args, **kwargs)
+    class Meta:
+        verbose_name_plural="Checkins"
