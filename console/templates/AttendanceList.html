@@ -1,0 +1,29 @@
+{% include "base.html" %}
+
+
+<div class="limiter">
+	<div class="container-table100">
+		<h1>{{name}}</h1>
+		<div class="wrap-table100">
+			<div class="table100">
+				<table>
+					<thead>
+						<th>PID</th>
+						<th>Name</th>
+						<th>Checkin Time</th>
+						<!-- <th></th> -->
+					</thead>
+					<tbody>
+						{% for checkin in checkins %}
+						<tr>
+							<td class="column1">{{checkin.pid}}</td>
+							<td class="column1">{{checkin.name}}</td>
+							<td class="column1">{{checkin.checkin_date}}</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

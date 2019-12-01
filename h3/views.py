@@ -36,9 +36,12 @@ class SignupView(View):
             user = authenticate(username=username, password=raw_password)
             login(request, user)
             return redirect('home')
-        return render(request, 'signup.html', {'form': form})
+        return render(request, 'signup.html', context={'form': form})
 
     def get(self,request):
         form = UserCreationForm()
         return render(request, 'signup.html', {'form': form})
         
+class RedirectView(View):
+    def get(self,request):
+        return redirect('/console')

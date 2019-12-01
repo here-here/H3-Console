@@ -1,0 +1,30 @@
+{% include "base.html" %}
+
+
+<div class="limiter">
+	<div class="container-table100">
+		<h1>{{name}}</h1>
+		<div class="wrap-table100">
+			<div class="table100">
+				<table>
+					<thead>
+						<th>Token</th>
+						<th>Start Date</th>
+						<th>End Date</th>
+						<th></th>
+					</thead>
+					<tbody>
+						{% for session in sessions %}
+						<tr>
+							<td class="column1">{{session.token}}</td>
+							<td class="column1">{{session.creation_date}}</td>
+							<td class="column1">{{session.expiration_date}}</td>
+							<td class="column2"><a href="/console/sessions/{{session.id}}">Attendance Report</a></td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
