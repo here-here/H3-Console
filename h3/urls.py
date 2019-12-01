@@ -14,6 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.contrib.auth import views as auth_views
 from django.urls import path, include
 
 # from h3.views import APIRootView, HomeView
@@ -52,9 +53,10 @@ urlpatterns = [
     # accounts/password_reset/done/ [name='password_reset_done']
     # accounts/reset/<uidb64>/<token>/ [name='password_reset_confirm']
     # accounts/reset/done/ [name='password_reset_complete']
-    path('accounts/', include('django.contrib.auth.urls')),
-    path('accounts/signup', SignupView.as_view()),
-
+    # path('accounts/', include('django.contrib.auth.urls')),
+    # path('accounts/signup', SignupView.as_view()),
+    path(r'login', auth_views.LoginView.as_view(), {'template_name': 'registration/login.html'}, name='login'),
+    path(r'logout', auth_views.LogoutView.as_view(), {'next_page': '/login'}, name='logout'),
     # Class Period API
     path(r'api/classes', include(api_urls.urlpatterns)),
     # path(r'api/', APIRootView.as_view(), name='api-root')

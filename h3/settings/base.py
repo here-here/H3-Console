@@ -137,6 +137,9 @@ SWAGGER_SETTINGS = {
     'SECURITY_DEFINITIONS': None,
 }
 
+LOGIN_REDIRECT_URL = '/console/'
+LOGOUT_REDIRECT_URL = '/login'
+
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR,'static/')
 
