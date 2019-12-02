@@ -1,8 +1,10 @@
 from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.decorators import login_required
 
 from class_periods.models import ClassPeriods, SessionTokens, StudentCheckin
 
 # Create your views here.
+@login_required(login_url='/login')
 def IndexView(request):
     classes = ClassPeriods.objects.all()
     classes_dict = [{'name': a.name, 'id': a.id} for a in classes]
@@ -11,6 +13,7 @@ def IndexView(request):
 def ClassesView(request):
     return "hi"
 
+@login_required(login_url='/login')
 def SessionsView(request, class_id=None):
     print(class_id)
     class_obj = get_object_or_404(ClassPeriods, id=class_id)
@@ -20,6 +23,7 @@ def SessionsView(request, class_id=None):
 
     return render(request, 'SessionList.html', {'sessions': sessions_dict, 'name': class_name})
 
+@login_required(login_url='/login')
 def AttendanceView(request, session_id=None):
     session_obj = get_object_or_404(SessionTokens, id=session_id)
 
