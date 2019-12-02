@@ -117,7 +117,10 @@ class CheckInView(APIView):
         TODO: Only professors and admins should be able to view this.
         """
         checkins = StudentCheckin.objects.all()
-        string_checkins = [str(x) for x in checkins]
+        if checkins.exists():
+            string_checkins = [str(x) for x in checkins]
+        else:
+            string_checkins = []
         return Response(data={'checkins': string_checkins})
 
 class ClassesView(APIView):
@@ -127,6 +130,9 @@ class ClassesView(APIView):
     def get(self,request):
         """Retrieve all of a user's classes"""
         classes = ClassPeriods.objects.all().filter(owner=request.user)
-        class_strings = [str(x) for x in classes]
+        if classes.exists():
+            class_strings = [str(x) for x in classes]
+        else:
+            class_strings = []
 
         return Response(data={'classes': class_strings})
