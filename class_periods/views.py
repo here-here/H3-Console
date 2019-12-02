@@ -5,6 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.models import User
 from .models import SessionTokens, ClassPeriods, StudentCheckin
 import json
+from datetime import datetime
 import logging
 
 logger = logging.getLogger(__name__)
@@ -22,6 +23,9 @@ class RequestTokenView(APIView):
             token = request.data['token']
         except:
             return Response(data={'error': 'invalid request'}, status=400)
+
+        if not ClassPeriods.objects.filter(name=class_name).exists():
+            return Response(data={'error': 'class does not exist'}, status=400)
 
         class_section = ClassPeriods.objects.get(name=class_name)
         if SessionTokens.objects.filter(token=token).exists():
@@ -66,7 +70,7 @@ class ValidateTokenView(APIView):
         
         if matching_token.isValid():
             conflicts = StudentCheckin.objects.all().filter(pid=pid, session=matching_token)
-            if conflicts != None:
+            if conflicts.exists():
                 return Response(data={'error': 'Already Checked In'}, status=400)
             checkin = StudentCheckin(name=student_name, pid=pid, session = matching_token)
             checkin.save()
@@ -83,7 +87,7 @@ class InvalidateTokenView(APIView):
 
         TODO: Only professors and admins should be able to do this
         """
-        print(request.data)
+        # return Response("hi")
         try:
             token = request.data['token']
         except:
@@ -93,6 +97,7 @@ class InvalidateTokenView(APIView):
 
         try:
             matching_token = SessionTokens.objects.get(token=token)
+            print(matching_token)
         except:
             return Response(data={'error':'invalid token'}, status=400)
         

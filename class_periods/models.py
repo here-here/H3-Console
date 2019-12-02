@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User, AbstractUser
 from django.utils import timezone
+from django.utils.timezone import now
 import uuid
 
 #class User(AbstractUser):
@@ -46,7 +47,7 @@ class SessionTokens(models.Model):
 class StudentCheckin(models.Model):
     name = models.TextField()
     pid = models.TextField()
-    checkin_date = models.DateTimeField()
+    checkin_date = models.DateTimeField(default=timezone.now)
     session = models.ForeignKey(SessionTokens, on_delete=models.CASCADE)
 
     def __str__(self):
