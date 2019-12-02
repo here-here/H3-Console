@@ -52,7 +52,6 @@ class ClassroomSessionTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
 
         tokens = StudentCheckin.objects.all()
-        print(tokens)
         # Validate the Token
         response = c.post('/api/classes/validateToken', data = {
             'token': 'TESTTOKEN',
@@ -83,7 +82,5 @@ class ClassroomSessionTestCase(TestCase):
             'token': 'TESTTOKEN'
         })
 
-        print(response.json())
-        self.assertIsNotNone(response.json())
         self.assertEqual(response.status_code, 200)
         
