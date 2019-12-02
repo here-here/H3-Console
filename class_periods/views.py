@@ -69,7 +69,8 @@ class ValidateTokenView(APIView):
             return Response(data={'error':'invalid token'}, status=400)
         
         if matching_token.isValid():
-            conflicts = StudentCheckin.objects.all().filter(pid=pid, session=matching_token)
+            all_objs = StudentCheckin.objects.all()
+            conflicts = all_objs.filter(pid=pid) | all_objs.filter(hwid=hwid) | all_objs.filter(name=student_name)
             if conflicts.exists():
                 return Response(data={'error': 'Already Checked In'}, status=400)
             checkin = StudentCheckin(name=student_name, pid=pid, session = matching_token)
@@ -97,7 +98,6 @@ class InvalidateTokenView(APIView):
 
         try:
             matching_token = SessionTokens.objects.get(token=token)
-            print(matching_token)
         except:
             return Response(data={'error':'invalid token'}, status=400)
         

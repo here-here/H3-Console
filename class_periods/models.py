@@ -47,6 +47,7 @@ class SessionTokens(models.Model):
 class StudentCheckin(models.Model):
     name = models.TextField()
     pid = models.TextField()
+    hwid = models.TextField(default="")
     checkin_date = models.DateTimeField(default=timezone.now)
     session = models.ForeignKey(SessionTokens, on_delete=models.CASCADE)
 
